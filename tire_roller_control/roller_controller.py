@@ -24,10 +24,10 @@ from std_msgs.msg import Int8
 from std_msgs.msg import String
 import time
 
-from .control_algorithm import BASE_COORDINATES
-from .control_algorithm import MAX_STEER_LIMIT, GNSSTOWHEEL
-from .control_algorithm import stanley_control
-import roller_control.velocity_profile as velocity_profile
+from tire_roller_control.control_algorithm import BASE_COORDINATES
+from tire_roller_control.control_algorithm import MAX_STEER_LIMIT, GNSSTOWHEEL
+from tire_roller_control.control_algorithm import stanley_control
+import tire_roller_control.velocity_profile as velocity_profile
 CONTROL_PERIOD = 0.1
 
 
@@ -91,7 +91,6 @@ class RollerController(Node):
         self.radar_status = Int8()
 
         self.count = 0
-        self.log_display_cnt = 50
 
     def recieve_motioncmd(self, msg: String):
         if msg.data == 'E-STOP':
@@ -163,8 +162,6 @@ class RollerController(Node):
     def control(self):
         """
         제어 알고리즘 실행구문.
-        * 전진시 롤러 드럼을 기준으로 제어
-        * 후진시 바디를 기준으로 제어
         -X방향(후진주행방향)을 +X방향으로 변환
         왼손좌표계사용 (좌회전:음수, 우회전:양수)
         """

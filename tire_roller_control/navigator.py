@@ -21,8 +21,8 @@ from statemachine.exceptions import TransitionNotAllowed
 from std_msgs.msg import String
 import time
 
-from .control_algorithm import BASE_COORDINATES
-from .path_generator import PathGenerator
+from tire_roller_control.control_algorithm import BASE_COORDINATES
+from tire_roller_control.path_generator import PathGenerator
 
 
 class VibrationRollerStateMachine(StateMachine):
