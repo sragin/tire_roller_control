@@ -173,8 +173,10 @@ class RollerController(Node):
         if vel < 0:
             # BX992좌표를 기준으로 뒷바퀴좌표를 계산
             theta_ = theta + np.pi
-            x = self.roller_status.body_pose.x + GNSSTOWHEEL * np.cos(theta_)
-            y = self.roller_status.body_pose.y + GNSSTOWHEEL * np.sin(theta_)
+            # x = self.roller_status.body_pose.x + GNSSTOWHEEL * np.cos(theta_)
+            # y = self.roller_status.body_pose.y + GNSSTOWHEEL * np.sin(theta_)
+            x = self.roller_status.body_pose.x
+            y = self.roller_status.body_pose.y
             steer_angle = self.roller_status.steer_angle
             self.get_logger().info(f'theta:{theta_} x:{self.roller_status.body_pose.x} {x} y:{self.roller_status.body_pose.y} {y}')
         else:
@@ -202,9 +204,9 @@ class RollerController(Node):
         self.cmd_vel_msg.angular.z = steer_cmd
 
         # 안전디바이스 처리
-        if self.radar_status.data == 2 or self.radar_status.data == 3:
-            self.cmd_vel_msg.linear.x = 0.0
-            self.cmd_vel_msg.angular.z = 0.0
+        # if self.radar_status.data == 2 or self.radar_status.data == 3:
+        #     self.cmd_vel_msg.linear.x = 0.0
+        #     self.cmd_vel_msg.angular.z = 0.0
 
         now = datetime.now()
         self.get_logger().info(
@@ -271,15 +273,16 @@ class RollerController(Node):
         self.radar_status = msg
 
 def main(args=None):
-    rclpy.init(args=args)
-
-    roller_controller = RollerController()
-    # Use a MultiThreadedExecutor to enable processing goals concurrently
-    executor = MultiThreadedExecutor()
-    rclpy.spin(roller_controller, executor=executor)
-    roller_controller.destroy_node()
-
-    rclpy.shutdown()
+    try:
+        rclpy.init(args=args)
+        roller_controller = RollerController()
+        # Use a MultiThreadedExecutor to enable processing goals concurrently
+        executor = MultiThreadedExecutor()
+        rclpy.spin(roller_controller, executor=executor)
+    except KeyboardInterrupt:
+        roller_controller.get_logger().warn('Keyboard interrrupt (SIGINT)')
+    finally:
+        roller_controller.destroy_node()
 
 
 if __name__ == '__main__':

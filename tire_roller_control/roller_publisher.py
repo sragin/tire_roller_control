@@ -65,7 +65,6 @@ class RollerPublisher(Node):
 
         # 소부연 테스트베드 원점. 임의로 정한값임. 수준점 측량 후 변경해줘야 함)
         self.basepoint = BASE_COORDINATES
-        self.basepoint = [0, 0]
 
         self.count = 0
         self.log_display_cnt = 10
@@ -136,10 +135,9 @@ def main(args=None):
         roller_publisher = RollerPublisher()
         rclpy.spin(roller_publisher)
     except KeyboardInterrupt:
-        roller_publisher.get_logger().info('Keyboard interrrupt (SIGINT)')
+        roller_publisher.get_logger().warn('Keyboard interrrupt (SIGINT)')
     finally:
         roller_publisher.destroy_node()
-        rclpy.shutdown()
 
 
 if __name__ == '__main__':

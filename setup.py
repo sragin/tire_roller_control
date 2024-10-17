@@ -30,6 +30,7 @@ setup(
         'console_scripts': [
             'roller_publisher = tire_roller_control.roller_publisher:main',
             'roller_controller = tire_roller_control.roller_controller:main',
+            'navigator = tire_roller_control.navigator:main',
         ],
     },
 )

@@ -22,12 +22,12 @@ def generate_launch_description():
             package='tire_roller_control',
             executable='roller_publisher',
         ),
-        # Node(
-        #     package='tire_roller_control',
-        #     executable='navigator',
-        # ),
-        # Node(
-        #     package='tire_roller_control',
-        #     executable='roller_controller',
-        # ),
+        Node(
+            package='tire_roller_control',
+            executable='navigator',
+        ),
+        Node(
+            package='tire_roller_control',
+            executable='roller_controller',
+        ),
     ])

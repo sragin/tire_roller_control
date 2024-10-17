@@ -276,11 +276,14 @@ class Navigator(Node):
 
 
 def main(args=None):
-    rclpy.init(args=args)
-    navigator = Navigator()
-    rclpy.spin(navigator)
-    navigator.destroy_node()
-    rclpy.shutdown()
+    try:
+        rclpy.init(args=args)
+        navigator = Navigator()
+        rclpy.spin(navigator)
+    except KeyboardInterrupt:
+        navigator.get_logger().warn('Keyboard interrrupt (SIGINT)')
+    finally:
+        navigator.destroy_node()
 
 
 if __name__ == '__main__':

@@ -28,6 +28,7 @@ MAX_STEER_LIMIT = 30 / 180 * np.pi
 ACCELERATION = 1.25  # [m/s^2]
 DECELERATION = 1.25 / 10  # [m/s^2]
 BASE_COORDINATES = [371262.716, 159079.566]
+BASE_COORDINATES = [0.0, 0.0]
 
 def stanley_control(x, y, yaw, v, map_xs, map_ys, map_yaws):
     """
