@@ -24,7 +24,7 @@ INNER_TRACK_RADIUS = 3.677  # [m]
 MINIMUM_TURNING_RADIUS = INNER_TRACK_RADIUS + WIDTH/2  # [m] minimum turning radius
 MAX_STEER_VEL = 10.0 / 180 * np.pi
 MAX_STEER = 31.5
-MAX_STEER_LIMIT = 30 / 180 * np.pi
+MAX_STEER_LIMIT = 20 / 180 * np.pi
 ACCELERATION = 1.25  # [m/s^2]
 DECELERATION = 1.25 / 10  # [m/s^2]
 BASE_COORDINATES = [371262.716, 159079.566]
@@ -46,7 +46,7 @@ def stanley_control(x, y, yaw, v, map_xs, map_ys, map_yaws):
 
     """
     # control gain
-    k = 0.5
+    k = 0.05
 
     # find the nearest point
     min_dist = 1e9
