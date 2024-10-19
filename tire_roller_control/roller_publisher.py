@@ -12,6 +12,7 @@ import rclpy
 from rclpy.node import Node
 from rclpy.qos import qos_profile_sensor_data
 from rclpy.qos import qos_profile_system_default
+from rclpy.qos import QoSProfile
 from roller_interfaces.msg import RollerStatus
 from std_msgs.msg import Float32
 
@@ -24,6 +25,7 @@ class RollerPublisher(Node):
         super().__init__('roller_publisher')
         self.nodeName = self.get_name()
         self.get_logger().info(f'{self.nodeName} started')
+        qos_profile = QoSProfile(depth=10)
 
         self.gps_msg_subscriber = self.create_subscription(
             GPSMsg,
@@ -46,7 +48,7 @@ class RollerPublisher(Node):
         self.roller_status_publisher = self.create_publisher(
             RollerStatus,
             'roller_status',
-            qos_profile_system_default
+            qos_profile
         )
 
         self.timer_roller_geometry_msg = self.create_timer(1/20, self.publish_roller_geometry_msg)
