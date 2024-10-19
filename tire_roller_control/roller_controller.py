@@ -178,12 +178,13 @@ class RollerController(Node):
             x = self.roller_status.body_pose.x
             y = self.roller_status.body_pose.y
             steer_angle = self.roller_status.steer_angle
-            self.get_logger().info(f'theta:{theta_} x:{self.roller_status.body_pose.x} {x} y:{self.roller_status.body_pose.y} {y}')
+            # self.get_logger().info(f'theta:{theta_} x:{self.roller_status.body_pose.x} {x} y:{self.roller_status.body_pose.y} {y}')
         else:
             x = self.roller_status.pose.x
             y = self.roller_status.pose.y
             steer_angle = self.roller_status.steer_angle
-            theta_ = theta + steer_angle
+            # theta_ = theta + steer_angle
+            theta_ = theta
 
         steer_, yaw_, cte_, min_dist_, min_index_ =\
             stanley_control(x=x, y=y, yaw=theta_, v=vel,
@@ -216,7 +217,7 @@ class RollerController(Node):
             f'Position = xi:{self.map_xs[min_index_] :.3f} yi:{self.map_ys[min_index_] :.3f} '
             f'yaw_i(deg):{self.map_yaws[min_index_] * 180 / np.pi :.3f} '
             f'drum x:{self.roller_status.pose.x :.3f} y:{self.roller_status.pose.y :.3f} '
-            f'yaw:{(self.roller_status.pose.theta + steer_angle) * 180 / np.pi} '
+            f'yaw:{(self.roller_status.pose.theta) * 180 / np.pi} '
             f'body x:{self.roller_status.body_pose.x :.3f} y:{self.roller_status.body_pose.y :.3f} '
             f'yaw:{self.roller_status.pose.theta * 180 / np.pi}\n'
             f'Roller Status = steer angle(deg):{steer_angle * 180 / np.pi :.3f} '
