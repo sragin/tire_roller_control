@@ -29,6 +29,7 @@ setup(
     entry_points={
         'console_scripts': [
             'roller_publisher = tire_roller_control.roller_publisher:main',
+            'base_controller = tire_roller_control.base_controller:main',
             'roller_controller = tire_roller_control.roller_controller:main',
             'navigator = tire_roller_control.navigator:main',
         ],

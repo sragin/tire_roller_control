@@ -6,10 +6,6 @@ from launch_ros.actions import Node
 def generate_launch_description():
     return LaunchDescription([
         LogInfo(msg=['Execute tire roller control launcher!']),
-        # Node(
-        #     package='tire_roller_control',
-        #     executable='base_controller',
-        # ),
         Node(
             package='gps_rclpy_pkg',
             executable='tcpgps_geoid_pub',
@@ -17,6 +13,10 @@ def generate_launch_description():
                 {'gps_ip': '192.168.110.163'},
                 {'gps_port': 11511},
             ]
+        ),
+        Node(
+            package='tire_roller_control',
+            executable='base_controller',
         ),
         Node(
             package='tire_roller_control',
